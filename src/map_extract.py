@@ -13,25 +13,6 @@ parser.add_argument('-o','--output', help='Output filename of network')
 parser.add_argument('-v','--vissim', help='Output file in VISSIM format')
 args = parser.parse_args()
 
-map_parser = MapParser()
-drawFile = None
-outputFile = None
-vissimFile = None
-
-if args.draw:
-	print("Output to filename : " + args.draw)
-	drawFile = args.draw
-
-if args.output:
-	print("Output network to file : " + args.output)
-	outputFile = args.output
-
-if args.vissim:
-	print("Output network to VISSIM format : " + args.vissim)
-	vissimFile = args.vissim
-
-map_parser.run(args)
-
 class MapParser(object):
 	nodes = 0
 	hw = 0
@@ -230,9 +211,34 @@ class MapParser(object):
 		self.p.parse(args.osm_filename)
 		self.p = OSMParser(ways_callback=self.connect_nodes)
 		self.p.parse(args.osm_filename)
+		term_nodes = 0
+		for node in self.vprop_size:
+			if node >0:
+				term_nodes += 1
+		print "Term Nodes" + str(term_nodes)
 		if args.draw:
-			graph_draw(self.g,vertex_size=self.vprop_size, pos=self.vprop_pos, edge_pen_width=self.eprop_thickness, fit_view=True,output_size=(800,800),output="args.draw")
+			graph_draw(self.g,vertex_size=self.vprop_size, pos=self.vprop_pos, edge_pen_width=self.eprop_thickness, fit_view=True,output_size=(800,800),output=args.draw)
 		print("Connected nodes. Drawing graph...")
+
+map_parser = MapParser()
+drawFile = None
+outputFile = None
+vissimFile = None
+
+if args.draw:
+	print("Output to filename : " + args.draw)
+	drawFile = args.draw
+
+if args.output:
+	print("Output network to file : " + args.output)
+	outputFile = args.output
+
+if args.vissim:
+	print("Output network to VISSIM format : " + args.vissim)
+	vissimFile = args.vissim
+
+map_parser.run(args)
+
 """			
 parser = MapParser()
 #p = OSMParser(coords_callback=parser.coords_callback)
