@@ -56,6 +56,16 @@ class MapParser(object):
                 print "Connectors!"
                 for point in link.findall("./geometry/points3D/point3D"):
                     print point.attrib['x'], point.attrib['y']
+                    
+                    
+        To add XML:
+	  link = ET.SubElement(root[0],'link')
+	  link.set('attrib','value')
+	  lanes = ET.SubElement(link,'lanes')
+	  lane = ET.SubElement(lanes,'lane')
+	  lane.set('attrib','value')
+	  tree = ET.cElementTree(root)
+	  tree.write('test.inpx')
         """
         #First Parse the graph into links and connectors
         #vertices = (gtu.find_vertex_range(self.g,"in",[2,1000]))
