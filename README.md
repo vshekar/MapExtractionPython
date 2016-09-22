@@ -16,5 +16,5 @@ usage: map_extract.py [-h] [-d DRAW] [-o OUTPUT] [-v VISSIM] osm_filename
 
 -d Draws the network into a file called DRAW
 -o Outputs the network into a TNTP file called OUTPUT
--v Outputs the network into a VISSIM file (version 12)
+-v Outputs the network into a VISSIM file (version 12) [Currently not being worked on]
 
